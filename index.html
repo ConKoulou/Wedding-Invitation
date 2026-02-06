@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>You're Invited — Our Wedding</title>
+  <title>K & E - Wedding Invitation</title>
   <meta name="description" content="Join us to celebrate our wedding — elegant invitation page." />
 
   <!-- Google Fonts: Serif + Sans -->
@@ -16,22 +16,22 @@
   <style>
     /* Mobile-first responsive styles */
     :root{
-      --rose:#f7e9e9; /* soft rose */
-      --champagne:#f6ecd8; /* champagne */
+      --black:#000000;
+      --white:#ffffff;
       --gold:#c69b47;
-      --muted:#8b7d73;
-      --accent:#d8c1be;
+      --bordeaux:#5a002c;
+      --muted:#4b3f3a;
       --glass: rgba(255,255,255,0.55);
       --max-width:1100px;
-      color-scheme: light;
+      color-scheme: dark;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(214,187,181,0.08), transparent), linear-gradient(180deg, var(--rose) 0%, var(--champagne) 100%);
-      color: #4b3f3a;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f7f5 40%, #fef5f1 100%);
+      color: #1a1a1a;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
       overflow-x:hidden;
@@ -48,14 +48,14 @@
     .hero-bg-svg{position:absolute;inset:0;pointer-events:none;z-index:0}
     .hero-inner{position:relative;z-index:5;max-width:900px;margin:0 auto}
     .frame{
-      display:inline-block;padding:36px 48px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.35));
-      backdrop-filter: blur(6px) saturate(110%);box-shadow:0 8px 30px rgba(88,61,42,0.12);
-      border:1px solid rgba(255,255,255,0.25);
+      display:inline-block;padding:36px 48px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));
+      backdrop-filter: blur(12px) saturate(130%);box-shadow:0 12px 40px rgba(90,0,44,0.08);
+      border:2px solid var(--gold);
     }
-    h1{font-family:'Playfair Display', serif;font-size:2.4rem;margin:0 0 6px;color:#3e2f2b;letter-spacing:1px}
-    .names{font-size:3rem;line-height:1.02;font-weight:700}
-    .date{font-family:'Montserrat',sans-serif;color:var(--muted);margin-top:10px;font-weight:400}
-    .sub{font-size:1rem;color:var(--muted);margin-top:8px}
+    h1{font-family:'Playfair Display', serif;font-size:2.4rem;margin:0 0 6px;color:#5a002c;letter-spacing:1px}
+    .names{font-size:3rem;line-height:1.02;font-weight:700;color:#1a1a1a}
+    .date{font-family:'Montserrat',sans-serif;color:var(--gold);margin-top:10px;font-weight:400}
+    .sub{font-size:1rem;color:#555555;margin-top:8px}
 
     /* Decorative gold accent */
     .gold-foil{background:linear-gradient(120deg, #FFDDAA 0%, #F0D8A8 30%, #C69B47 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -66,19 +66,19 @@
     .divider{width:60px;height:4px;background:linear-gradient(90deg, transparent,#c69b47,transparent);border-radius:99px}
 
     /* Our story */
-    .story{background:linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.35));padding:22px;border-radius:16px;box-shadow:0 6px 20px rgba(65,45,34,0.06);}
+    .story{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));padding:22px;border-radius:16px;box-shadow:0 8px 24px rgba(90,0,44,0.06);border:1px solid rgba(198,155,71,0.25);}
     .timeline{display:grid;grid-template-columns:1fr;gap:18px}
     .timeline-item{display:flex;gap:12px;align-items:flex-start}
-    .dot{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(198,155,71,0.45)}
+    .dot{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px rgba(198,155,71,0.6)}
 
     /* Event details */
     .cards{display:grid;grid-template-columns:1fr;gap:14px}
-    .card{background:rgba(255,255,255,0.6);padding:16px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:0 8px 20px rgba(67,47,35,0.06)}
-    .icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg, rgba(198,155,71,0.12), rgba(214,182,150,0.06));display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:600}
+    .card{background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,248,245,0.9));padding:16px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 18px rgba(90,0,44,0.07);border:1px solid rgba(198,155,71,0.2)}
+    .icon{width:44px;height:44px;border-radius:10px;background:rgba(198,155,71,0.08);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:600;font-size:1.4rem}
 
     /* Map */
-    .map-wrap{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);box-shadow:0 10px 30px rgba(55,40,28,0.08)}
-    iframe{width:100%;height:300px;border:0}
+    .map-wrap{border-radius:12px;overflow:hidden;border:2px solid var(--gold);box-shadow:0 8px 24px rgba(90,0,44,0.08)}
+    iframe{width:100%;height:300px;border:0;display:block}
 
     /* RSVP */
     .rsvp{display:flex;align-items:center;gap:16px;justify-content:center}
@@ -89,10 +89,10 @@
 
     /* Gallery */
     .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    .gallery img{width:100%;height:170px;object-fit:cover;border-radius:10px;display:block;cursor:pointer;box-shadow:0 8px 20px rgba(60,40,30,0.06)}
+    .gallery img{width:100%;height:170px;object-fit:cover;border-radius:10px;display:block;cursor:pointer;box-shadow:0 8px 24px rgba(90,0,44,0.08);border:1px solid rgba(198,155,71,0.25)}
 
     /* Footer */
-    footer{padding:28px 0;text-align:center;color:var(--muted);font-size:0.95rem}
+    footer{padding:28px 0;text-align:center;color:#666666;font-size:0.95rem}
 
     /* Floating decorations */
     .floating{position:absolute;will-change:transform;pointer-events:none}
@@ -105,7 +105,7 @@
     @media(min-width:720px){
       .names{font-size:4.2rem}
       h1{font-size:2.6rem}
-      .cards{grid-template-columns:repeat(3,1fr)}
+      .cards{grid-template-columns:repeat(5,1fr)}
       .timeline{grid-template-columns:repeat(2,1fr)}
       .gallery{grid-template-columns:repeat(3,1fr)}
       iframe{height:380px}
@@ -118,19 +118,15 @@
   <!-- Floating particles canvas -->
   <canvas id="particles" style="position:fixed;inset:0;z-index:1;pointer-events:none"></canvas>
 
-  <!-- SVG background / floral accents -->
+  <!-- SVG subtle background accents -->
   <svg class="hero-bg-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#fff3e9" stop-opacity="0.6"/><stop offset="1" stop-color="#f6ecd8" stop-opacity="0.4"/></linearGradient>
-      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+      <radialGradient id="g1"><stop offset="0%" stop-color="#5a002c" stop-opacity="0.05"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
     </defs>
-    <rect width="1200" height="800" fill="url(#g1)"/>
-    <!-- watercolor floral shape -->
-    <g transform="translate(80,40) scale(1.05)" opacity="0.9">
-      <path d="M200 30 C 80 80 50 220 220 300 C 380 360 520 250 650 200 C 770 160 870 120 980 80 L980 400 L0 400 L0 60 Z" fill="#f6dfe0" opacity="0.5" filter="url(#soft)"/>
-    </g>
-    <!-- subtle gold strokes -->
-    <path d="M60 600 Q300 520 560 640 Q820 760 1160 620" stroke="#c69b47" stroke-width="2.5" opacity="0.08" fill="none"/>
+    <circle cx="200" cy="150" r="300" fill="url(#g1)"/>
+    <circle cx="1000" cy="700" r="250" fill="url(#g1)"/>
+    <!-- subtle gold decorative lines -->
+    <path d="M60 600 Q300 520 560 640 Q820 760 1160 620" stroke="#c69b47" stroke-width="1.5" opacity="0.15" fill="none"/>
   </svg>
 
   <main>
@@ -143,21 +139,18 @@
           <p class="sub">We invite you to share in our celebration of love.</p>
         </div>
       </div>
-      <!-- floating florals -->
-      <svg class="floating" id="floral1" width="220" height="220" style="left:8%;top:6%;z-index:2">
-        <defs>
-          <linearGradient id="fg" x1="0" x2="1"><stop offset="0" stop-color="#fff0f1"/><stop offset="1" stop-color="#f2d7d9"/></linearGradient>
-        </defs>
-        <g opacity="0.92" transform="rotate(-10 110 110)">
-          <circle cx="70" cy="70" r="36" fill="url(#fg)" opacity="0.95"/>
-          <path d="M30 160 C70 120 150 120 180 150 C140 180 80 190 30 160 Z" fill="#f4e1e2" opacity="0.9"/>
-        </g>
+      <!-- Subtle sparkle elements -->
+      <svg class="floating" id="sparkle1" width="120" height="120" style="left:5%;top:8%;z-index:2" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <defs><style>.sparkle-star { animation: twinkle 3s infinite; }</style></defs>
+        <circle cx="60" cy="60" r="4" fill="#c69b47" opacity="0.4" class="sparkle-star"/>
+        <circle cx="25" cy="45" r="2" fill="#c69b47" opacity="0.3" class="sparkle-star"/>
+        <circle cx="90" cy="70" r="2.5" fill="#c69b47" opacity="0.35" class="sparkle-star"/>
       </svg>
 
-      <svg class="floating" id="floral2" width="220" height="220" style="right:6%;bottom:8%;z-index:2">
-        <g opacity="0.9" transform="rotate(12 110 110)">
-          <path d="M110 12 C88 20 66 38 60 70 C36 86 28 116 44 138 C80 178 156 162 182 124 C196 98 190 68 166 38 C150 20 136 12 110 12 Z" fill="#fff6f6"/>
-        </g>
+      <svg class="floating" id="sparkle2" width="100" height="100" style="right:8%;bottom:10%;z-index:2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="3.5" fill="#c69b47" opacity="0.35"/>
+        <circle cx="20" cy="30" r="1.8" fill="#c69b47" opacity="0.25"/>
+        <circle cx="80" cy="60" r="2" fill="#c69b47" opacity="0.3"/>
       </svg>
     </header>
 
@@ -202,24 +195,38 @@
       </div>
       <div class="cards">
         <div class="card" data-anim>
-          <div class="icon">🕊</div>
+          <div class="icon">�</div>
           <div>
-            <strong>Ceremony</strong>
-            <div class="sub">12:00 PM — St. Augustine Chapel</div>
+            <strong>Bride Change</strong>
+            <div class="sub"><a href="https://www.google.com/maps/search/Engomi,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">14:00 — Engomi</a></div>
+          </div>
+        </div>
+        <div class="card" data-anim>
+          <div class="icon">🤵</div>
+          <div>
+            <strong>Groom Change</strong>
+            <div class="sub"><a href="https://www.google.com/maps/search/Geri,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">12:00 — Geri</a></div>
+          </div>
+        </div>
+        <div class="card" data-anim>
+          <div class="icon">⛪</div>
+          <div>
+            <strong>Church</strong>
+            <div class="sub"><a href="https://www.google.com/maps/search/St.+Nicolas+Church,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">14:00 — St. Nicolas</a></div>
+          </div>
+        </div>
+        <div class="card" data-anim>
+          <div class="icon">🍾</div>
+          <div>
+            <strong>Greetings & Cocktail</strong>
+            <div class="sub"><a href="https://www.google.com/maps/search/St.+Nicolas+Church,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">17:15–19:15 — Church</a></div>
           </div>
         </div>
         <div class="card" data-anim>
           <div class="icon">🍽️</div>
           <div>
-            <strong>Reception</strong>
-            <div class="sub">2:00 PM — Rosewood Garden</div>
-          </div>
-        </div>
-        <div class="card" data-anim>
-          <div class="icon">📍</div>
-          <div>
-            <strong>Address</strong>
-            <div class="sub">123 Meadow Lane, Hometown</div>
+            <strong>Dinner</strong>
+            <div class="sub"><a href="https://www.google.com/maps/search/Tade+Events+Avenue,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">20:00 — Tade Events Ave</a></div>
           </div>
         </div>
       </div>
@@ -244,8 +251,7 @@
         <div class="divider" aria-hidden></div>
       </div>
       <div class="rsvp" data-anim>
-        <a class="btn" href="tel:+1234567890" aria-label="Call to RSVP">Call to RSVP — +1 (234) 567‑890</a>
-        <a class="btn" href="#" id="rsvpForm" style="background:transparent;border:1px solid rgba(76,54,38,0.08);">Online RSVP</a>
+        <a class="btn" href="tel:+357 99 123123" aria-label="Call to RSVP">Call to RSVP — +357 99 123123</a>
       </div>
     </section>
 
@@ -281,17 +287,17 @@
     let h = canvas.height = innerHeight;
 
     const particles = [];
-    const colors = ['rgba(214,182,150,0.9)','rgba(245,219,212,0.92)','rgba(198,155,71,0.9)'];
+    const colors = ['rgba(198,155,71,0.25)','rgba(90,0,44,0.2)','rgba(198,155,71,0.22)'];
 
     function rand(min,max){return Math.random()*(max-min)+min}
 
     function createParticle(){
       return {
-        x: rand(0,w), y: rand(-50,h), r: rand(2,9), vx: rand(-0.4,0.4), vy: rand(0.2,1.2), rot: rand(0,Math.PI*2), vr: rand(-0.005,0.005), color: colors[Math.floor(rand(0,colors.length))]
+        x: rand(0,w), y: rand(-50,h), r: rand(1.2,3.5), vx: rand(-0.12,0.12), vy: rand(0.06,0.28), rot: rand(0,Math.PI*2), vr: rand(-0.0015,0.0015), color: colors[Math.floor(rand(0,colors.length))]
       }
     }
 
-    for(let i=0;i<80;i++) particles.push(createParticle());
+    for(let i=0;i<25;i++) particles.push(createParticle());
 
     function resize(){ w = canvas.width = innerWidth; h = canvas.height = innerHeight }
     addEventListener('resize', resize);
@@ -323,21 +329,25 @@
       gsap.from(el,{y:22,opacity:0,duration:0.9,scrollTrigger:{trigger:el,start:'top 86%'}});
     });
 
-    // Parallax subtle movement for floating elements
-    const floral1 = document.getElementById('floral1');
-    const floral2 = document.getElementById('floral2');
+    // Parallax subtle movement for sparkle elements
+    const sparkle1 = document.getElementById('sparkle1');
+    const sparkle2 = document.getElementById('sparkle2');
     window.addEventListener('scroll',()=>{
       const t = pageYOffset || document.documentElement.scrollTop;
-      floral1.style.transform = `translateY(${t*0.04}px) rotate(${t*0.01}deg)`;
-      floral2.style.transform = `translateY(${t*0.02}px) rotate(${t*0.015}deg)`;
+      sparkle1.style.transform = `translateY(${t*0.03}px) rotate(${t*0.008}deg)`;
+      sparkle2.style.transform = `translateY(${t*0.02}px) rotate(${-t*0.01}deg)`;
     });
 
     // Smooth scroll behavior for internal anchors
     document.documentElement.style.scrollBehavior = 'smooth';
 
-    // Floating gentle animation for decorations
-    gsap.to('#floral1',{y:-12,repeat:-1,yoyo:true,duration:6,ease:'sine.inOut'});
-    gsap.to('#floral2',{y:12,repeat:-1,yoyo:true,duration:8,ease:'sine.inOut'});
+    // Floating gentle animation for sparkles
+    gsap.to('#sparkle1',{y:-8,repeat:-1,yoyo:true,duration:5,ease:'sine.inOut'});
+    gsap.to('#sparkle2',{y:6,repeat:-1,yoyo:true,duration:7,ease:'sine.inOut'});
+    // Twinkling animation
+    const style = document.createElement('style');
+    style.textContent = '@keyframes twinkle { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }';
+    document.head.appendChild(style);
 
     // Lazy load gallery images and lightbox
     document.querySelectorAll('.gallery img').forEach(img=>{
@@ -348,12 +358,6 @@
       })
     });
     document.getElementById('lightbox').addEventListener('click',e=>{ if(e.target.id==='lightbox') e.currentTarget.style.display='none'; });
-
-    // Button to demonstration of smooth jump
-    document.getElementById('rsvpForm').addEventListener('click',e=>{
-      e.preventDefault();
-      alert('Online RSVP placeholder — form integration available on request.');
-    });
 
     // Accessibility: reduce motion respects
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
