@@ -3,377 +3,1028 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>K & E - Wedding Invitation</title>
-  <meta name="description" content="Join us to celebrate our wedding — elegant invitation page." />
+  <title>Konstantinos & Eleni — Wedding Invitation</title>
+  <meta name="description" content="Join us to celebrate our wedding day." />
 
   <!-- Google Fonts: Serif + Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <!-- Google Fonts: Dancinf Script-->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- GSAP -->
+  <!-- Google Font: Lora (for invitation text) -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+  <!-- GSAP for animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
-    /* Mobile-first responsive styles */
-    :root{
-      --black:#000000;
-      --white:#ffffff;
-      --gold:#c69b47;
+    /* Root variables */
+    :root {
+      --white: #ffffff;
+      --black: #000000;
+      --gold: #c69b47;
       --bordeaux:#5a002c;
-      --muted:#4b3f3a;
-      --glass: rgba(255,255,255,0.55);
-      --max-width:1100px;
-      color-scheme: dark;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      background: linear-gradient(135deg, #ffffff 0%, #f9f7f5 40%, #fef5f1 100%);
-      color: #1a1a1a;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-    }
-    a{color:inherit}
-    main{max-width:var(--max-width);margin:0 auto;padding:24px}
+      --dark-grey: #2a2a2a;
+      --max-width: 1200px;
 
-    /* Header / Hero */
-    .hero{
-      min-height:78vh;
-      display:flex;align-items:center;justify-content:center;position:relative;padding:48px 16px 64px;
-      text-align:center;overflow:visible
+      /* Timeline specific */
+      /* Increase/decrease this one value to scale the whole timeline */
+      --tl-scale: 1.4; /* try 1.2, 1.4, 1.6, etc. */
+
+      /* Derived sizes (don't change unless you want different proportions) */
+      --tl-icon-size: calc(55px * var(--tl-scale));      /* base was 55px */
+      --tl-icon-left: calc(12px * var(--tl-scale));      /* icon x-position */
+      --tl-icon-top: calc(8px * var(--tl-scale));        /* icon y-offset */
+      --tl-padding-left: calc(80px * var(--tl-scale));   /* space for icon + line */
+      --tl-event-gap: calc(40px * var(--tl-scale));      /* vertical gap between events */
+      --tl-font-time: calc(16px * var(--tl-scale) * 0.9);/* ≈ 1rem * scale */
+      --tl-font-name: calc(17.6px * var(--tl-scale));    /* ≈ 1.1rem * scale */
+      --tl-font-loc: calc(15.2px * var(--tl-scale));     /* ≈ 0.95rem * scale */
+
+      /* Connector line */
+      --tl-line-width: calc(2px * var(--tl-scale));
+      --tl-line-gap: calc(10px * var(--tl-scale));       /* small space from icon edge */
+      --tl-line-height: calc(30px * var(--tl-scale));    /* length between two icons */
     }
-    .hero-bg-svg{position:absolute;inset:0;pointer-events:none;z-index:0}
-    .hero-inner{
-      position:relative;z-index:5;max-width:900px;margin:0 auto;
-      background: linear-gradient(135deg, rgba(0,0,0,0.35), rgba(90,0,44,0.25)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80&sat=-100');
-      background-size: cover;
-      background-position: center;
+
+    /* Global styles */
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: var(--white);
+      color: var(--dark-grey);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    /* Hero / Welcome section */
+    .hero {
+      position: relative;
+      width: 100%;
+      padding: 60px 24px 0;
+      text-align: center;
+    }
+
+    /* Invitation text placed above the image on the right half */
+    .invite-text {
+      position: absolute;
+      top: 22px;
+      right: 8%;
+      width: 44%;
+      text-align: right;
+      /*font-family: 'Lora', serif;*/
+      font-family: 'Spectral', serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 1.5rem;
+      color: var(--black);
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      z-index: 25;
+      pointer-events: none;
+      margin-right: 10px; /*Starts whhere image ends*/
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      margin: 45px auto;
+      max-width: 90%;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
       border-radius: 20px;
-      padding: 60px 40px;
-      min-height: 500px;
-      display: flex;
+    }
+
+    /* Fading overlay effect */
+    .hero-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--white) 100%);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    /* Names section */
+    .names-section {
+      position: relative;
+      padding: 80px 24px 120px;
+      text-align: center;
+      background: var(--white);
+      z-index: 10;
+    }
+
+    .names {
+      /*font-family: 'Lucida Handwriting', cursive, serif;*/
+      font-family: 'Dancing Script', cursive;
+      font-size: 4.5rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: var(--black);
+      margin: 0;
+      line-height: 0.7;
+      word-spacing: 0.2em;
+    }
+
+    /* Gold decorative lines */
+    .gold-line {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin: 30px auto;
+    }
+
+    .gold-line-thin {
+      width: 120px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px auto;
+      opacity: 0.6;
+    }
+
+    /* Bordeaux decorative lines */
+    .bordeaux-line {
+      width: 80px;
+      height: 2px;
+      background: var(--bordeaux);
+      margin: 30px auto;
+    }
+
+    .bordeaux-line-thin {
+      width: 120px;
+      height: 1px;
+      background: var(--bordeaux);
+      margin: 20px auto;
+      opacity: 0.6;
+    }
+
+    /* Date styling */
+    .date-section {
+      font-family: 'Spectral', serif;
+      font-size: 1.5rem;
+      color: var(--black);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .date-day {
+      font-weight: 400;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .date-value {
+      font-weight: 400;
+      display: block;
+    }
+
+    .invitation-paragraph {
+      font-family: 'Spectral', serif;
+      font-size: 1.25rem;
+      color: var(--dark-grey);
+      text-align: center;
+      margin: 14px 24px 24px;
+      line-height: 1.5;
+      /*background: linear-gradient(180deg, rgba(90,0,44,0.02), transparent);*/
+    }
+
+    /* Countdown / Add to Calendar styles */
+    .countdown-section {
+      text-align: center;
+      padding: 28px 24px;
+      /*background: linear-gradient(180deg, rgba(90,0,44,0.02), transparent);*/
+    }
+
+    .countdown-wrapper {
+      display: inline-flex;
+      gap: 12px;
       align-items: center;
       justify-content: center;
-    }
-    .frame{
-      display:inline-block;padding:36px 48px;border-radius:20px;background:linear-gradient(180deg, rgba(0,0,0,0.5), rgba(0,0,0,0.4));
-      backdrop-filter: blur(15px) saturate(130%);box-shadow:0 12px 50px rgba(0,0,0,0.3);
-      border:2px solid var(--gold);
-    }
-    h1{font-family:'Playfair Display', serif;font-size:2.4rem;margin:0 0 6px;color:var(--gold);letter-spacing:1px;text-shadow: 0 2px 8px rgba(0,0,0,0.4)}
-    .names{font-size:3rem;line-height:1.02;font-weight:700;color:#ffffff;text-shadow: 0 3px 12px rgba(0,0,0,0.5)}
-    .date{font-family:'Montserrat',sans-serif;color:var(--gold);margin-top:10px;font-weight:400;text-shadow: 0 2px 6px rgba(0,0,0,0.4)}
-    .sub{font-size:1rem;color:#ffffff;margin-top:8px;text-shadow: 0 2px 6px rgba(0,0,0,0.4)}
-
-    /* Decorative gold accent */
-    .gold-foil{background:linear-gradient(120deg, #FFDDAA 0%, #F0D8A8 30%, #C69B47 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-
-    /* Sections */
-    section{padding:40px 0}
-    .section-head{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:18px}
-    .divider{width:60px;height:4px;background:linear-gradient(90deg, transparent,#c69b47,transparent);border-radius:99px}
-
-    /* Our story */
-    .story{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));padding:22px;border-radius:16px;box-shadow:0 8px 24px rgba(90,0,44,0.06);border:1px solid rgba(198,155,71,0.25);}
-    .timeline{display:grid;grid-template-columns:1fr;gap:18px}
-    .timeline-item{display:flex;gap:12px;align-items:flex-start}
-    .dot{width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 16px rgba(198,155,71,0.6)}
-
-    /* Event details */
-    .cards{display:grid;grid-template-columns:1fr;gap:14px}
-    .card{background:linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,248,245,0.9));padding:16px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 18px rgba(90,0,44,0.07);border:1px solid rgba(198,155,71,0.2)}
-    .icon{width:44px;height:44px;border-radius:10px;background:rgba(198,155,71,0.08);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:600;font-size:1.4rem}
-
-    /* Map */
-    .map-wrap{border-radius:12px;overflow:hidden;border:2px solid var(--gold);box-shadow:0 8px 24px rgba(90,0,44,0.08)}
-    iframe{width:100%;height:300px;border:0;display:block}
-
-    /* RSVP */
-    .rsvp{display:flex;align-items:center;gap:16px;justify-content:center}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:40px;background:linear-gradient(90deg,var(--gold),#e4c17f);color:#4b2f12;text-decoration:none;font-weight:600;box-shadow:0 6px 20px rgba(198,155,71,0.18);transition:transform .28s ease,box-shadow .28s ease;
-    }
-    .btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(198,155,71,0.22)}
-
-    /* Gallery */
-    .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    .gallery img{width:100%;height:170px;object-fit:cover;border-radius:10px;display:block;cursor:pointer;box-shadow:0 8px 24px rgba(90,0,44,0.08);border:1px solid rgba(198,155,71,0.25)}
-
-    /* Footer */
-    footer{padding:28px 0;text-align:center;color:#666666;font-size:0.95rem}
-
-    /* Floating decorations */
-    .floating{position:absolute;will-change:transform;pointer-events:none}
-
-    /* Lightbox */
-    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:9999}
-    .lightbox img{max-width:92%;max-height:86%;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,0.6)}
-
-    /* Responsive tweaks */
-    @media(min-width:720px){
-      .names{font-size:4.2rem}
-      h1{font-size:2.6rem}
-      .cards{grid-template-columns:repeat(5,1fr)}
-      .timeline{grid-template-columns:repeat(2,1fr)}
-      .gallery{grid-template-columns:repeat(3,1fr)}
-      iframe{height:380px}
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(90,0,44,0.05);
+      border: 1px solid rgba(90,0,44,0.06);
     }
 
+    .countdown-segment {
+      min-width: 56px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(90,0,44,0.03);
+      color: var(--bordeaux);
+      font-family: 'Spectral', serif;
+      font-weight: 600;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .countdown-label {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--dark-grey);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .calendar-btn {
+      margin-left: 14px;
+      background: var(--bordeaux);
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width:480px) {
+      .countdown-wrapper { gap:8px; padding:8px 10px; }
+      .countdown-segment { min-width:44px; padding:6px 8px; font-size:0.9rem; }
+      .calendar-btn { margin-left:8px; padding:8px 10px; }
+    }
+
+    /* Call / Gallery / Final message styles */
+    .call-section {
+      text-align: center;
+      padding: 18px 24px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--dark-grey);
+    }
+
+    .call-number {
+      display: inline-block;
+      background: var(--bordeaux);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-decoration: none;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 900px;
+      margin: 12px auto 24px;
+      padding: 0 16px 24px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: 2px solid rgba(90,0,44,0.03);
+    }
+
+    .final-message {
+      text-align: center;
+      padding: 20px 24px 60px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05rem;
+      color: var(--dark-grey);
+      max-width: 800px;
+      margin: 0 auto 60px;
+      line-height: 1.5;
+    }
+
+    .date-value {
+      font-weight: 400;
+      display: block;
+    }
+
+    /* Timeline section */
+    .timeline-section {
+      padding: 0px 24px 20px;
+      text-align: center;
+    }
+
+    .timeline-container {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+      position: relative;
+      padding: 20px 0;
+    }
+
+    /* Vertical line connecting all events 
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 29px;
+      top: 75px;
+      bottom: 75px;
+      width: 2px;
+      background: var(--bordeaux);
+    } */
+
+    /* Line for each pair of events */
+.timeline-event::after {
+  content: '';
+  position: absolute;
+  left: 38px;              /* Aligns with center of the icons */
+  width: 2px;
+  background: var(--bordeaux);
+  top: calc(100%);  /* Start BELOW the icon (with small gap) */
+  height: calc(30px);      /* Adjust depending on spacing */
+}
+/* Extended lines for events with maps (Church and Dinner) */
+.timeline-event:nth-child(3)::after {
+  height: calc(30px + 240px + 24px); /* 30px gap + 240px map + 24px padding */
+}
+
+.timeline-event:nth-child(4)::after {
+  height: calc(30px); /* Normal line between Cocktail and Dinner */
+}
+
+.timeline-event:nth-child(5)::after {
+  height: calc(30px + 240px + 24px); /* 30px gap + 240px map + 24px padding */
+}
+
+/* Remove the line after the last event */
+.timeline-event:last-child::after {
+  display: none;
+}
+
+/* But keep the line for event 5 (Dinner) which has a map */
+.timeline-event:nth-child(5)::after {
+  display: block;
+}
+
+    .timeline-event {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      position: relative;
+      padding-left: 80px;
+    }
+
+    .timeline-icon {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      width: 55px;
+      height: 55px;
+      /*background: var(--bordeaux);
+      border-radius: 50%;*/
+      border: 3px solid var(--white);
+      box-shadow: 0 0 0 2px var(--bordeaux);
+      flex-shrink: 0;
+      z-index: 10;
+
+      background-size: contain;  background-repeat: no-repeat;  background-position: center;  border: none;  box-shadow: none;  border-radius: 0;
+    }
+
+    .timeline-event:nth-child(1) .timeline-icon {
+      background-image: url('./assets/groom.png');
+    }
+
+    .timeline-event:nth-child(2) .timeline-icon {
+      background-image: url('./assets/bride.png');
+    }
+
+    .timeline-event:nth-child(3) .timeline-icon {
+      background-image: url('./assets/church.png');
+    }
+
+    .timeline-event:nth-child(4) .timeline-icon {
+      background-image: url('./assets/cocktail.png');
+    }
+
+    .timeline-event:nth-child(5) .timeline-icon {
+      background-image: url('./assets/wedding-cake.png');
+    }
+
+    .timeline-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .timeline-event:nth-child(3) .timeline-content,
+    .timeline-event:nth-child(5) .timeline-content {
+      max-width: 200px;
+      margin-right: 20px;
+    }
+
+    .timeline-time {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--bordeaux);
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline-event-name {
+      font-family: 'Spectral', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--black);
+      margin-bottom: 3px;
+    }
+
+    .timeline-location {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 0.95rem;
+      color: var(--dark-grey);
+      opacity: 0.8;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .names {
+        font-size: 2.8rem;
+        letter-spacing: 2px;
+      }
+
+      .hero {
+        padding: 40px 16px 0;
+      }
+
+      .names-section {
+        padding: 0px 16px 20px;
+      }
+
+      .hero-fade {
+        height: 0px; /* Adjust the fade area - opx is not visible */
+      }
+
+      .invite-text {
+        right: 6%;
+        width: 50%;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .names {
+        font-size: 2rem;
+        letter-spacing: 1px;
+      }
+
+      .gold-line {
+        width: 60px;
+      }
+
+      .hero {
+        padding: 30px 12px 0;
+      }
+
+      .names-section {
+        padding: 50px 12px 40px;
+      }
+
+      .invite-text {
+        position: static;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20x;
+        font-size: 0.95rem;
+        padding-top: 6px;
+      }
+
+      .timeline-section {
+        padding: 0px 12px 10px;
+      }
+
+      .timeline-container {
+        padding: 15px 0;
+      }
+
+      .timeline-event {
+        margin-bottom: 35px;
+        padding-left: 70px;
+      }
+
+      .timeline-icon {
+        left: 8px;
+        width: 30px;
+        height: 30px;
+        border: 2px solid var(--white);
+      }
+
+      .timeline-container::before {
+        left: 21px;
+      }
+
+      .timeline-time {
+        font-size: 0.9rem;
+      }
+
+      .timeline-event-name {
+        font-size: 1rem;
+      }
+
+      .timeline-location {
+        font-size: 0.85rem;
+      }
+    }
+
+
+
+
+    /* Container stays same width unless you want to increase it too */
+.timeline-section {
+  padding: 0 24px calc(10px * var(--tl-scale));
+  text-align: center;
+}
+
+.timeline-container {
+  max-width: calc(600px + (var(--tl-scale) - 1) * 120px); /* grows a bit as it scales */
+  margin: 0 auto;
+  text-align: left;
+  position: relative;
+  padding: calc(10px * var(--tl-scale)) 0;
+}
+
+/* Each event block */
+.timeline-event {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  padding-left: var(--tl-padding-left);
+  margin-bottom: var(--tl-event-gap);
+  gap: 20px;
+}
+
+.timeline-icon {
+  position: absolute;
+  left: var(--tl-icon-left);
+  top: var(--tl-icon-top);
+  width: var(--tl-icon-size);
+  height: var(--tl-icon-size);
+
+  /* your icon image settings */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* remove old circle styling */
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* Short connector line between pairs (event N to N+1) */
+.timeline-event::after {
+  content: '';
+  position: absolute;
+  /* place the line at the center of the icon */
+  left: calc(var(--tl-icon-left) + var(--tl-icon-size) / 2 - var(--tl-line-width) / 2);
+  width: var(--tl-line-width);
+  background: var(--bordeaux);
+
+  /* start a bit below the bottom of the icon (gap), end before next icon */
+  top: calc(var(--tl-icon-top) + var(--tl-icon-size) + var(--tl-line-gap));
+  height: var(--tl-line-height);
+}
+
+/* No line after the last event */
+.timeline-event:last-child::after {
+  display: none;
+}
+
+/* Typography */
+.timeline-time {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: var(--tl-font-time);
+  color: var(--bordeaux);
+  margin-bottom: calc(5px * var(--tl-scale));
+  letter-spacing: calc(0.5px * var(--tl-scale));
+}
+
+.timeline-event-name {
+  font-family: 'Spectral', serif;
+  font-weight: 600;
+  font-size: var(--tl-font-name);
+  color: var(--black);
+  margin-bottom: calc(3px * var(--tl-scale));
+}
+
+.timeline-location {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: var(--tl-font-loc);
+  color: var(--dark-grey);
+  opacity: 0.8;
+}
+
+.timeline-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-event:nth-child(3) .timeline-content,
+.timeline-event:nth-child(5) .timeline-content {
+  max-width: 200px;
+  margin-right: 20px;
+}
+
+/* Map Container Styles */
+.map-container {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 12px;
+  border: 2px solid var(--bordeaux);
+  border-radius: 10px;
+  background: rgba(90, 0, 44, 0.03);
+  position: relative;
+  overflow: hidden;
+  width: 320px;
+  height: 240px;
+  flex-shrink: 0;
+}
+
+.map-container::before {
+  content: '📍';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 20px;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.map-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(90, 0, 44, 0.15);
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* === Your event-specific icon images (unchanged) === */
+.timeline-event:nth-child(1) .timeline-icon { background-image: url('./assets/groom.png'); }
+.timeline-event:nth-child(2) .timeline-icon { background-image: url('./assets/bride.png'); }
+.timeline-event:nth-child(3) .timeline-icon { background-image: url('./assets/church.png'); }
+.timeline-event:nth-child(4) .timeline-icon { background-image: url('./assets/cocktail.png'); }
+.timeline-event:nth-child(5) .timeline-icon { background-image: url('./assets/wedding-cake.png'); }
+
+/* === Responsive: taper the scale on small screens to keep it readable === */
+@media (max-width: 768px) {
+  .map-container {
+    width: 100%;
+    height: 200px;
+    margin-top: 12px;
+  }
+
+  .timeline-event:nth-child(3),
+  .timeline-event:nth-child(5) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-event:nth-child(3) .timeline-content,
+  .timeline-event:nth-child(5) .timeline-content {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  /* Extended lines for events with maps on tablet */
+  .timeline-event:nth-child(3)::after {
+    height: calc(30px + 200px + 24px); /* Adjusted for tablet map height */
+  }
+
+  .timeline-event:nth-child(5)::after {
+    display: block;
+    height: calc(30px + 200px + 24px);
+  }
+}
+
+@media (max-width: 480px) {
+  :root { --tl-scale: 0.95; } /* slightly smaller than desktop for narrow phones */
+  .timeline-section { padding: 0 12px calc(60px * var(--tl-scale)); }
+  .timeline-container { padding: calc(15px * var(--tl-scale)) 0; }
+  
+  .map-container {
+    width: 100%;
+    height: 180px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .timeline-event:nth-child(3),
+  .timeline-event:nth-child(5) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-event:nth-child(3) .timeline-content,
+  .timeline-event:nth-child(5) .timeline-content {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  /* Extended lines for events with maps on mobile */
+  .timeline-event:nth-child(3)::after {
+    height: calc(30px + 180px + 20px); /* Adjusted for mobile map height */
+  }
+
+  .timeline-event:nth-child(5)::after {
+    display: block;
+    height: calc(30px + 180px + 20px);
+  }
+}
   </style>
 </head>
 <body>
 
-  <!-- Floating particles canvas -->
-  <canvas id="particles" style="position:fixed;inset:0;z-index:1;pointer-events:none"></canvas>
-
-  <!-- SVG subtle background accents -->
-  <svg class="hero-bg-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <radialGradient id="g1"><stop offset="0%" stop-color="#5a002c" stop-opacity="0.05"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
-    </defs>
-    <circle cx="200" cy="150" r="300" fill="url(#g1)"/>
-    <circle cx="1000" cy="700" r="250" fill="url(#g1)"/>
-    <!-- subtle gold decorative lines -->
-    <path d="M60 600 Q300 520 560 640 Q820 760 1160 620" stroke="#c69b47" stroke-width="1.5" opacity="0.15" fill="none"/>
-  </svg>
-
   <main>
-    <header class="hero" role="banner">
-      <div class="hero-inner">
-        <div class="frame" id="heroFrame">
-          <h1 class="sub gold-foil">With joy in our hearts</h1>
-          <div class="names" id="names">Konstantinos &amp; Eleni</div>
-          <div class="date" id="date">Saturday, June 12, 2026</div>
-          <p class="sub">We invite you to share in our celebration of love.</p>
+    <section class="hero" role="region" aria-label="Welcome with couple photo">
+      <div class="invite-text" aria-hidden="true">YOU ARE CORDIALLY INVITED TO OUR WEDDING</div>
+      <div class="hero-image-wrapper">
+        <!--<img src="./assets/title.jpeg" alt="Couple photo" class="hero-image" loading="eager">-->
+        <img src="./assets/colortitle.jpeg" alt="Couple photo" class="hero-image" loading="eager">
+        <div class="hero-fade"></div>
+      </div>
+    </section>
+
+    <section class="names-section">
+      <!--<div class="gold-line-thin" aria-hidden="true"></div>-->
+      <h1 class="names">Konstantinos &amp; Eleni</h1>
+      <div class="bordeaux-line" aria-hidden="true"></div>
+      <div class="date-section" aria-hidden="true">
+        <span class="date-day">Saturday</span>
+        <span class="date-value">03.10.2026</span>
+      </div>
+      <div class="bordeaux-line" aria-hidden="true"></div>
+      <!-- <div class="invitation-paragraph" aria-hidden="true">Με πολλή χαρά σας προσκαλούμε να μοιραστείτε μαζί μας μία από τις πιο όμορφες στιγμές της ζωής μας! Η παρουσία σας θα κάνει αυτή την μέρα ακόμη πιο ξεχωριστή και γεμάτη αγάπη. Ανυπομονούμε να γιορτάσουμε όλοι μαζί!</div> -->
+      <div class="invitation-paragraph" aria-hidden="true">With great joy, we invite you to share with us one of the most beautiful moments of our lives! Your presence will make this day even more special and full of love. We look forward to celebrating together!</div>
+      <div class="bordeaux-line" aria-hidden="true"></div>
+      </section>
+
+    <section class="timeline-section" role="region" aria-label="Wedding day timeline">
+      <div class="timeline-container">
+        <div class="timeline-event">
+          <div class="timeline-icon" aria-hidden="true"></div>
+          <div class="timeline-content">
+            <div class="timeline-time">12:00</div>
+            <div class="timeline-event-name">Change of Groom</div>
+            <div class="timeline-location">At his home</div>
+          </div>
         </div>
-      </div>
-      <!-- Subtle sparkle elements -->
-      <svg class="floating" id="sparkle1" width="120" height="120" style="left:5%;top:8%;z-index:2" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <defs><style>.sparkle-star { animation: twinkle 3s infinite; }</style></defs>
-        <circle cx="60" cy="60" r="4" fill="#c69b47" opacity="0.4" class="sparkle-star"/>
-        <circle cx="25" cy="45" r="2" fill="#c69b47" opacity="0.3" class="sparkle-star"/>
-        <circle cx="90" cy="70" r="2.5" fill="#c69b47" opacity="0.35" class="sparkle-star"/>
-      </svg>
 
-      <svg class="floating" id="sparkle2" width="100" height="100" style="right:8%;bottom:10%;z-index:2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="3.5" fill="#c69b47" opacity="0.35"/>
-        <circle cx="20" cy="30" r="1.8" fill="#c69b47" opacity="0.25"/>
-        <circle cx="80" cy="60" r="2" fill="#c69b47" opacity="0.3"/>
-      </svg>
-    </header>
+        <div class="timeline-event">
+          <div class="timeline-icon" aria-hidden="true"></div>
+          <div class="timeline-content">
+            <div class="timeline-time">14:30</div>
+            <div class="timeline-event-name">Change of Bride</div>
+            <div class="timeline-location">At her home</div>
+          </div>
+        </div>
 
-    <section id="our-story">
-      <div class="section-head">
-        <div class="divider" aria-hidden></div>
-        <h2 style="font-family:Playfair Display,serif;margin:0;font-size:1.4rem">Our Story</h2>
-        <div class="divider" aria-hidden></div>
-      </div>
-      <div class="story" aria-label="Our romantic story">
-        <div class="timeline">
-          <div class="timeline-item" data-anim>
-            <div class="dot" aria-hidden></div>
-            <div>
-              <strong style="display:block">How we met</strong>
-              <p class="sub">A chance encounter at a summer gallery opening — one laugh, one conversation, and an evening that turned into many more.</p>
+        <div class="timeline-event">
+          <div class="timeline-icon" aria-hidden="true"></div>
+          <div class="timeline-content">
+            <div class="timeline-time">16:00</div>
+            <div class="timeline-event-name">Church Ceremony</div>
+            <div class="timeline-location">Church</div>
+            <div class="map-container">
+              <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.5167462861205!2d33.30439620000001!3d35.14373129999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14de1aff8db2d2d3%3A0xa983141e67938f60!2zzpXOus66zrvOt8-Dzq_OsSDOkc6zzq_Ov8-FIM6gzrHOvc-EzrXOu861zq7OvM6_zr3OsQ!5e0!3m2!1sel!2sus!4v1770752916219!5m2!1sel!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
             </div>
           </div>
-          <div class="timeline-item" data-anim>
-            <div class="dot" aria-hidden></div>
-            <div>
-              <strong style="display:block">The first trip</strong>
-              <p class="sub">We explored cobblestone streets and tiny cafés — that trip sealed our love for adventure and each other.</p>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-icon" aria-hidden="true"></div>
+          <div class="timeline-content">
+            <div class="timeline-time">17:15 - 19:15</div>
+            <div class="timeline-event-name">Greetings & Cocktail</div>
+            <div class="timeline-location">At the church</div>
+          </div>
+        </div>
+
+        <div class="timeline-event">
+          <div class="timeline-icon" aria-hidden="true"></div>
+          <div class="timeline-content">
+            <div class="timeline-time">20:30</div>
+            <div class="timeline-event-name">Dinner</div>
+            <div class="timeline-location">Kampia Lakewood</div>
+            <div class="map-container">
+              <div class="map-frame">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3268.069089381474!2d33.2497142!3d35.0049756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14e0a9ea32b0d405%3A0xf2d4dc47357baff9!2sLakewood%20Cyprus!5e0!3m2!1sel!2s!4v1770752548661!5m2!1sel!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
             </div>
           </div>
-          <div class="timeline-item" data-anim>
-            <div class="dot" aria-hidden></div>
-            <div>
-              <strong style="display:block">The proposal</strong>
-              <p class="sub">An intimate evening under lanterns — a small ring, a big promise, and immediate tears of joy.</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
-
-    <section id="details">
-      <div class="section-head">
-        <div class="divider" aria-hidden></div>
-        <h2 style="font-family:Playfair Display,serif;margin:0;font-size:1.4rem">Event Details</h2>
-        <div class="divider" aria-hidden></div>
-      </div>
-      <div class="cards">
-        <div class="card" data-anim>
-          <div class="icon">�</div>
-          <div>
-            <strong>Bride Change</strong>
-            <div class="sub"><a href="https://www.google.com/maps/search/Engomi,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">14:00 — Engomi</a></div>
-          </div>
+    <div class="bordeaux-line" aria-hidden="true"></div>
+    <section class="countdown-section" aria-label="Countdown to wedding">
+      <div class="countdown-wrapper" id="countdown-wrapper" aria-live="polite">
+        <div>
+          <div id="cd-days" class="countdown-segment">--</div>
+          <span class="countdown-label">Days</span>
         </div>
-        <div class="card" data-anim>
-          <div class="icon">🤵</div>
-          <div>
-            <strong>Groom Change</strong>
-            <div class="sub"><a href="https://www.google.com/maps/search/Geri,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">12:00 — Geri</a></div>
-          </div>
+        <div>
+          <div id="cd-hours" class="countdown-segment">--</div>
+          <span class="countdown-label">Hours</span>
         </div>
-        <div class="card" data-anim>
-          <div class="icon">⛪</div>
-          <div>
-            <strong>Church</strong>
-            <div class="sub"><a href="https://www.google.com/maps/search/St.+Nicolas+Church,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">14:00 — St. Nicolas</a></div>
-          </div>
+        <div>
+          <div id="cd-mins" class="countdown-segment">--</div>
+          <span class="countdown-label">Minutes</span>
         </div>
-        <div class="card" data-anim>
-          <div class="icon">🍾</div>
-          <div>
-            <strong>Greetings & Cocktail</strong>
-            <div class="sub"><a href="https://www.google.com/maps/search/St.+Nicolas+Church,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">17:15–19:15 — Church</a></div>
-          </div>
+        <div>
+          <div id="cd-secs" class="countdown-segment">--</div>
+          <span class="countdown-label">Seconds</span>
         </div>
-        <div class="card" data-anim>
-          <div class="icon">🍽️</div>
-          <div>
-            <strong>Dinner</strong>
-            <div class="sub"><a href="https://www.google.com/maps/search/Tade+Events+Avenue,+Cyprus" target="_blank" style="color:var(--gold);text-decoration:none">20:00 — Tade Events Ave</a></div>
-          </div>
-        </div>
+        <button id="add-calendar-btn" class="calendar-btn" type="button">Add to Calendar</button>
       </div>
     </section>
 
-    <section id="map">
-      <div class="section-head">
-        <div class="divider" aria-hidden></div>
-        <h2 style="font-family:Playfair Display,serif;margin:0;font-size:1.4rem">Venue</h2>
-        <div class="divider" aria-hidden></div>
-      </div>
-      <div class="map-wrap" data-anim>
-        <!-- Placeholder Google Map embed -->
-        <iframe title="Venue map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019525055298!2d-122.41941508468156!3d37.77492927975927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c2f0b0d3f%3A0x3c24f0aeb3b6b6d6!2sSan%20Francisco!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" loading="lazy"></iframe>
-      </div>
+    <div class="bordeaux-line" aria-hidden="true"></div>
+
+    <section class="call-section" aria-label="Contact for RSVP">
+      <!-- <p>To reserve a seat, please call or message:</p> -->
+       <p>Please inform us of your attendance to</p> <!-- by 15 September 2026 -->
+      <a class="call-number" href="tel:+35799123123">+357 99 123123</a>
     </section>
 
-    <section id="rsvp">
-      <div class="section-head">
-        <div class="divider" aria-hidden></div>
-        <h2 style="font-family:Playfair Display,serif;margin:0;font-size:1.4rem">RSVP</h2>
-        <div class="divider" aria-hidden></div>
-      </div>
-      <div class="rsvp" data-anim>
-        <a class="btn" href="tel:+357 99 123123" aria-label="Call to RSVP">Call to RSVP — +357 99 123123</a>
-      </div>
+    <div class="bordeaux-line" aria-hidden="true"></div>
+
+    <section class="gallery" aria-label="Couple photos">
+      <img src="./assets/Date.jpeg" alt="Couple photo 1">
+      <img src="./assets/DateEdited.jpg" alt="Couple photo 2">
+      <img src="./assets/title.jpeg" alt="Couple photo 3">
     </section>
 
-    <section id="gallery">
-      <div class="section-head">
-        <div class="divider" aria-hidden></div>
-        <h2 style="font-family:Playfair Display,serif;margin:0;font-size:1.4rem">Moments</h2>
-        <div class="divider" aria-hidden></div>
-      </div>
-      <div class="gallery" data-anim>
-        <img data-src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?auto=format&fit=crop&w=1200&q=60" alt="Couple 1">
-        <img data-src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=60" alt="Couple 2">
-        <img data-src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=60" alt="Couple 3">
-      </div>
-    </section>
+    <div class="bordeaux-line" aria-hidden="true"></div>
 
-    <footer>
-      <p style="font-family:Playfair Display,serif;font-size:1.1rem;margin:0 0 6px">We can't wait to celebrate with you</p>
-      <p class="sub">Hosted with love — Konstantinos &amp; Eleni</p>
-    </footer>
+    <section class="final-message" aria-label="Final message">
+      <!-- <p>Με αγάπη, ανυπομονούμε να γιορτάσουμε μαζί σας. — Κωνσταντίνος & Ελένη</p> -->
+       <p>Looking forward to celebrating with you!</p>
+       <p>Konstantinos & Eleni</p>
+    </section>
   </main>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
-    <img alt="Enlarged photo">
-  </div>
+  <script>
+    // Smooth fade-in animations on load
+    gsap.from('.hero-image', {
+      duration: 1.2,
+      opacity: 0,
+      y: 30,
+      ease: 'power3.out'
+    });
+
+    gsap.from('.names', {
+      duration: 1.4,
+      opacity: 0,
+      y: 20,
+      delay: 0.3,
+      ease: 'power2.out'
+    });
+
+    gsap.from('.gold-line', {
+      duration: 1,
+      scaleX: 0,
+      delay: 0.6,
+      ease: 'power3.out'
+    });
+
+    gsap.from('.bordeaux-line', {
+      duration: 1,
+      scaleX: 0,
+      delay: 0.6,
+      ease: 'power3.out'
+    });
+  </script>
 
   <script>
-    // Basic responsive canvas for floating petals/particles
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let w = canvas.width = innerWidth;
-    let h = canvas.height = innerHeight;
+    (function(){
+      // Target wedding: 3 Oct 2026 16:00 local, end at 4 Oct 2026 00:00
+      const targetLocal = new Date(2026, 9, 3, 16, 0, 0);
+      const endLocal = new Date(2026, 9, 4, 0, 0, 0);
 
-    const particles = [];
-    const colors = ['rgba(198,155,71,0.25)','rgba(90,0,44,0.2)','rgba(198,155,71,0.22)'];
+      const elDays = document.getElementById('cd-days');
+      const elHours = document.getElementById('cd-hours');
+      const elMins = document.getElementById('cd-mins');
+      const elSecs = document.getElementById('cd-secs');
 
-    function rand(min,max){return Math.random()*(max-min)+min}
-
-    function createParticle(){
-      return {
-        x: rand(0,w), y: rand(-50,h), r: rand(1.2,3.5), vx: rand(-0.12,0.12), vy: rand(0.06,0.28), rot: rand(0,Math.PI*2), vr: rand(-0.0015,0.0015), color: colors[Math.floor(rand(0,colors.length))]
+      function update(){
+        const now = new Date();
+        let diff = targetLocal - now;
+        if(diff < 0) diff = 0;
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((diff % (1000*60)) / 1000);
+        if(elDays) elDays.textContent = days;
+        if(elHours) elHours.textContent = hours;
+        if(elMins) elMins.textContent = minutes;
+        if(elSecs) elSecs.textContent = seconds;
       }
-    }
 
-    for(let i=0;i<25;i++) particles.push(createParticle());
+      update();
+      const interval = setInterval(update, 1000);
 
-    function resize(){ w = canvas.width = innerWidth; h = canvas.height = innerHeight }
-    addEventListener('resize', resize);
-
-    function draw(){
-      ctx.clearRect(0,0,w,h);
-      for(let p of particles){
-        p.x += p.vx; p.y += p.vy; p.rot += p.vr;
-        if(p.y>h+30) Object.assign(p, createParticle());
-        ctx.save();
-        ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-        // draw petal/soft circle
-        ctx.fillStyle = p.color;
-        ctx.beginPath(); ctx.ellipse(0,0,p.r*1.6,p.r,0,0,Math.PI*2); ctx.fill();
-        ctx.restore();
+      // ICS generation helpers
+      function pad(n){ return String(n).padStart(2,'0'); }
+      function toUTCStringForICS(d){
+        return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z';
       }
-      requestAnimationFrame(draw);
-    }
-    draw();
 
-    // GSAP entrance animations
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.from('#heroFrame',{y:40,opacity:0,duration:1.2,ease:'power3.out'});
-    gsap.from('.names',{y:10,opacity:0,duration:1.1,delay:0.15,stagger:0.08, fontSize: '2.2rem', ease:'power2.out', onComplete:()=>{}});
-    gsap.from('#date',{y:8,opacity:0,duration:.9,delay:0.25});
+      function createICS(){
+        const title = "Konstantinos & Eleni's Wedding Day";
+        const uid = Date.now() + '@kon-el-wedding';
+        const dtstamp = toUTCStringForICS(new Date());
+        const dtstart = toUTCStringForICS(new Date(targetLocal.getTime()));
+        const dtend = toUTCStringForICS(new Date(endLocal.getTime()));
+        const desc = 'Konstantinos & Eleni - Wedding Day';
+        const loc = 'Church / Kampia Lakewood';
 
-    // Reveal for sections
-    document.querySelectorAll('[data-anim]').forEach(el=>{
-      gsap.from(el,{y:22,opacity:0,duration:0.9,scrollTrigger:{trigger:el,start:'top 86%'}});
-    });
+        const lines = [
+          'BEGIN:VCALENDAR',
+          'VERSION:2.0',
+          'PRODID:-//Konstantinos & Eleni//Wedding Invite//EN',
+          'BEGIN:VEVENT',
+          'UID:'+uid,
+          'DTSTAMP:'+dtstamp,
+          'DTSTART:'+dtstart,
+          'DTEND:'+dtend,
+          'SUMMARY:'+title,
+          'DESCRIPTION:'+desc,
+          'LOCATION:'+loc,
+          'END:VEVENT',
+          'END:VCALENDAR'
+        ];
 
-    // Parallax subtle movement for sparkle elements
-    const sparkle1 = document.getElementById('sparkle1');
-    const sparkle2 = document.getElementById('sparkle2');
-    window.addEventListener('scroll',()=>{
-      const t = pageYOffset || document.documentElement.scrollTop;
-      sparkle1.style.transform = `translateY(${t*0.03}px) rotate(${t*0.008}deg)`;
-      sparkle2.style.transform = `translateY(${t*0.02}px) rotate(${-t*0.01}deg)`;
-    });
+        return lines.join('\r\n');
+      }
 
-    // Smooth scroll behavior for internal anchors
-    document.documentElement.style.scrollBehavior = 'smooth';
+      // Share or download .ics in a mobile-friendly way
+      const btn = document.getElementById('add-calendar-btn');
+      if(btn){
+        btn.addEventListener('click', async function(){
+          const icsText = createICS();
+          const blob = new Blob([icsText], {type: 'text/calendar;charset=utf-8'});
+          const file = new File([blob], 'Konstantinos-Eleni-Wedding.ics', {type: 'text/calendar'});
 
-    // Floating gentle animation for sparkles
-    gsap.to('#sparkle1',{y:-8,repeat:-1,yoyo:true,duration:5,ease:'sine.inOut'});
-    gsap.to('#sparkle2',{y:6,repeat:-1,yoyo:true,duration:7,ease:'sine.inOut'});
-    // Twinkling animation
-    const style = document.createElement('style');
-    style.textContent = '@keyframes twinkle { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }';
-    document.head.appendChild(style);
+          // Try Web Share API (mobile modern browsers)
+          if(navigator.canShare && navigator.canShare({files:[file]})){
+            try{
+              await navigator.share({ files: [file], title: "Konstantinos & Eleni's Wedding Day" });
+              return;
+            }catch(e){ /* fallthrough to download */ }
+          }
 
-    // Lazy load gallery images and lightbox
-    document.querySelectorAll('.gallery img').forEach(img=>{
-      img.src = img.dataset.src;
-      img.addEventListener('click',e=>{
-        const lb = document.getElementById('lightbox');
-        lb.style.display='flex'; lb.querySelector('img').src = img.src;
-      })
-    });
-    document.getElementById('lightbox').addEventListener('click',e=>{ if(e.target.id==='lightbox') e.currentTarget.style.display='none'; });
-
-    // Accessibility: reduce motion respects
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if(mq.matches){ gsap.globalTimeline.timeScale(5); }
-
+          // Fallback: trigger download
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'Konstantinos-Eleni-Wedding.ics';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1500);
+        });
+      }
+    })();
   </script>
+
 </body>
 </html>
